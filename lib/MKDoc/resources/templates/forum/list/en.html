@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC 
+  "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "DTD/xhtml1-transitional.dtd"
+>
+<html
+  petal:define="children self/top_thread/children;
+                view_p   plugin: MKDoc::Forum::Plugin::View;
+                post_p   plugin: MKDoc::Forum::Plugin::Post;
+                mboxes_p plugin: MKDoc::Forum::Plugin::MBoxes"
+>
+  <head>
+    <title>MKDoc::Forum - List Messages</title>
+    <style
+      media="screen"
+      type="text/css"
+      title="Screen style sheet"
+      petal:content="string:@import url(/.resources/css/forum.css)\;"
+    >@import "../../../css/forum.css";</style>
+  </head>
+  <body>
+
+    <h1>MKDoc::Forum - List Messages</h1>
+
+    <!-- navigation between multiple pages -->
+    <p metal:define-macro="page_nav" petal:condition="self/has_many_slices">
+      <span>Message index pages</span>
+      <span petal:repeat="slice self/slices">
+        <a href="#"
+           petal:attributes="href self/uri --page slice/number" 
+           petal:content="slice/number" 
+           petal:condition="false:slice/current"
+        >1</a>
+        <strong petal:condition="true:slice/current"
+                petal:contents="slice/number"></strong>
+        <bdo 
+          dir="ltr"
+          petal:attributes="dir dir"
+          petal:condition="false:__is_last__" 
+        >|</bdo>
+      </span>
+    </p>
+
+    <p><a href="#" petal:attributes="href mboxes_p/uri">View all forums</a></p>
+
+    <p><a href="#" petal:attributes="href post_p/uri --mbox self/mbox">Post a new message</a></p>
+
+    <p petal:condition="false:children">There are no messages in this forum.</p>
+<!--?
+      <p 
+        lang="en"
+        xml:lang="en"
+        dir="ltr"
+        align="left"
+        petal:attributes="align align"
+        petal:if="true:self/can_post"
+      >
+        <a 
+          href="post.html" 
+          hreflang="en"
+          petal:attributes="href string:${object/uri},post; hreflang object/lang"
+        >Post a new message</a>
+      </p>
+-->
+<ul metal:define-macro="thread"
+    petal:condition="true:children"
+>
+  <li petal:repeat="message children">
+    <span petal:if="true:message/uid">
+      <a
+        href="#"
+        hreflang="en"
+        xml:lang="en"
+        lang="en"
+        dir="ltr"
+        petal:attributes="
+                          href view_p/uri --mbox self/mbox --uid message/uid;
+                          hreflang message/language/code;
+                          xml:lang message/language/code;
+                          lang message/language/code;
+                          dir message/language/dir;
+                          name string:id-${message/uid};
+                          id string:id-${message/uid};
+                         "
+        petal:content="message/subject"
+      >Subject</a>
+      <em
+        petal:content="message/name"
+      >Authors Name</em>
+    </span>
+    <del
+      xml:lang="en"
+      lang="en"
+      dir="ltr"
+      petal:if="false:message/uid"
+    >(message deleted)</del>
+    <span
+      petal:define="children message/children"
+      petal:omit-tag="">
+      <ul metal:use-macro="#thread">
+        <li>Child</li>
+      </ul>
+    </span>
+  </li>
+</ul>
+
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<ul 
+  metal:define-macro="body"
+  petal:define="children self/top_thread/children"
+  xmlns:petal="http://purl.org/petal/1.0/"
+>
+
+$self
+
+<!--
+  <li 
+    petal:repeat="message children"
+  >
+    $message
+    <span 
+      petal:if="true:message/uid"
+    >
+      <a 
+        href="#"
+        hreflang="en"
+        xml:lang="en"
+        lang="en"
+        dir="ltr"
+        petal:attributes="
+                          href message/uri;
+                          hreflang message/lang;
+                          xml:lang message/lang;
+                          dir message/direction;
+                          lang message/lang;
+                          name string:id-${message/uid};
+                          id string:id-${message/uid};
+                         "
+        petal:contents="message/subject"
+      >Subject</a>
+      <em
+        petal:contents="message/name"
+      >Authors Name</em>
+    </span>
+    <del
+      xml:lang="en"
+      lang="en"
+      dir="ltr"
+      petal:if="false:message/uid"
+    >(message deleted)</del>
+    <span 
+      petal:define="children message/children"
+      petal:omit-tag="string:1"
+    >
+<?include file="/discussion/fragments/thread/en.html"?>
+    </span>
+  </li>
+-->
+</ul>

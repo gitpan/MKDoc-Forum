@@ -1,0 +1,15 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         MKDoc-Forum
+version:      0.1
+version_from: lib/MKDoc/Forum.pm
+installdirs:  site
+requires:
+    MKDoc::Core:                   0.3
+    MKDoc::Text::Structured:       0.1
+    MKDoc::XML:                    0.70
+    Scalar::Util:                  1.07
+    Test::Harness:                 2.00
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.17

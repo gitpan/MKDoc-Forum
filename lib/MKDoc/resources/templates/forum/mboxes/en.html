@@ -1,0 +1,24 @@
+<html petal:define="list_p plugin: MKDoc::Forum::Plugin::List">
+  <head>
+    <title>MKDoc::Forum - List All</title>
+    <style
+      media="screen"
+      type="text/css"
+      title="Screen style sheet"
+      petal:content="string:@import url(/.resources/css/forum.css)\;"
+    >@import "../../../css/forum.css";</style>
+  </head>
+  <body>
+    <h1>MKDoc::Forum - List All</h1>
+    <p petal:condition="false: self/list">
+      It seems that no forums have been created yet.
+    </p>
+
+    <dl petal:condition="true: self/list">
+      <?for name="mbox self/list"?>
+        <dt><a href="#" petal:attributes="href list_p/uri --mbox mbox/mbox" petal:content="mbox/title">Forum_Title</a></dt>
+        <dd petal:content="structure mbox/xhtml_description">Forum_Desc</dt>
+      <?end?>
+    </dl>
+  </body>
+</head>

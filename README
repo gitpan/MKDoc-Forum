@@ -1,0 +1,42 @@
+MKDoc::Forum - IMAP based threaded discussion board
+===================================================
+
+MKDoc::Forum implements discussion boards using an IMAP backend. This makes it
+possible to administrate the discussion boards using any IMAP-enabled mail
+application such as Mozilla mail or mutt.
+
+
+INSTALLATION
+
+To install this module type the following:
+
+  perl Makefile.PL
+  make
+  make test
+  make install
+
+Or better, use CPAN.pm
+
+
+DEPENDENCIES
+
+  Test::Harness            2.00,
+  Scalar::Util             1.07,
+  MKDoc::Core              0.3,
+  MKDoc::Text::Structured  0.1,
+  MKDoc::XML               0.70,
+  
+  Want to help us open-source MKDoc?
+  Join the MKDoc-Modules community!
+
+  http://lists.webarch.co.uk/mailman/listinfo/mkdoc-modules
+ 
+
+COPYRIGHT AND LICENCE
+
+  This module free software and is distributed under the
+  same license as Perl itself.
+
+  Copyright (C) 2003 MKDoc Holdings Ltd.
+
+  Author: Jean-Michel Hiver <jhiver@mkdoc.com>

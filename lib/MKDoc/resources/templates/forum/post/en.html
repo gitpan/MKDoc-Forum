@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>MKDoc::Forum - Post a message</title>
+    <style
+      media="screen"
+      type="text/css"
+      title="Screen style sheet"
+      petal:content="string:@import url(/.resources/css/forum.css)\;"
+    >@import "../../../css/forum.css";</style>
+  </head>
+  <body>
+    <form 
+      action="#" 
+      method="post"
+      accept-charset="UTF-8"
+      enctype="application/x-www-form-urlencoded"
+      petal:attributes="action self/uri"
+    >
+      <p
+        lang="en"
+        xml:lang="en"
+        dir="ltr"
+        align="left"
+        petal:attributes="align align"
+      >
+       Please complete all the following form fields before submitting this message. Please use 
+       plain text only in the message text area - HTML will
+       be escaped, hyperlinks will be automatically generated if the web address starts with
+       http:// and use two carriage returns to separate paragraphs.
+      </p>
+
+      <div class="error" petal:condition="true: self/has_errors">
+      <ul>
+        <span petal:omit-tag="" petal:repeat="error self/errors">
+          <li petal:condition="error/is --forum/post/subject_empty">
+            Please enter a subject for this message.
+          </li>
+          <li petal:condition="error/is --forum/post/message_empty">
+            You have not typed a message.
+          </li>
+        </span>
+      </ul>
+      </div>
+
+      <table
+        border="0"
+        cellpadding="4"
+        cellspacing="0"
+        width="100%"
+        dir="ltr"
+        summary="This table lays out the message headers."
+        petal:attributes="dir dir"
+        >
+        <tr>
+          <th>
+            <span
+              lang="en"
+              xml:lang="en"
+              dir="ltr"
+            >From</span>
+          </th>
+          <td>
+            <span petal:replace="self/user/full_name">Anonymous User</span>
+            &lt;<span petal:replace="self/user/email" />&gt;
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label
+              for="subject"
+              lang="en"
+              xml:lang="en"
+              dir="ltr"
+            >Subject</label>
+          </th>
+          <td>
+            <input
+              type="text"
+              name="subject"
+              id="subject"
+              size="60"
+              value="Subject"
+              petal:attributes="value self/request/param --subject"
+            />
+          </td>
+        </tr>
+      </table>
+      <p
+        align="left"
+        petal:attributes="align align"
+      >
+        <label
+          for="message"
+          lang="en"
+          xml:lang="en"
+          dir="ltr"
+        >Message</label>
+        <br />
+        <textarea 
+          rows="20" 
+          cols="80" 
+          name="message" 
+          id="message"
+          petal:content="self/request/param --message"
+          style="width:100%"
+        ></textarea>
+      </p>
+      <p>
+        <input 
+          type="submit" 
+          value="Post Message"
+        />
+      </p>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC 
+  "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "DTD/xhtml1-transitional.dtd"
+>
+<html
+  petal:define="children self/message/children;
+                list_p plugin: MKDoc::Forum::Plugin::List;
+                view_p plugin: MKDoc::Forum::Plugin::View;
+                post_p plugin: MKDoc::Forum::Plugin::Post"
+>
+  <head>
+    <title>MKDoc::Forum - Read a message</title>
+    <style
+      media="screen"
+      type="text/css"
+      title="Screen style sheet"
+      petal:content="string:@import url(/.resources/css/forum.css)\;"
+    >@import "../../../css/forum.css";</style>
+  </head>
+  <body>
+
+<p>
+   <a href="#" petal:attributes="href list_p/uri --mbox self/mbox">View All Messages</a> |
+   <a href="#" petal:attributes="href post_p/uri --mbox self/mbox --uid self/uid">Post a reply</a>
+</p>
+
+<h2>Message:</h2>
+
+<table>
+  <tr>
+    <td><strong>Subject</strong></td>
+    <td><strong petal:content="self/message/subject" >Message Subject</strong></td>
+  </tr>
+  <tr>
+    <td><strong>From</strong></td>
+    <td><strong petal:content="self/message/from" >From</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Date</strong></td>
+    <td><strong petal:content="self/message/date">Date</strong></td>
+  </tr>
+</table>
+
+<div petal:content="structure self/message/body_as_xhtml">Message</div>
+
+<h2 petal:condition="true:children">Replies:</h2>
+<ul metal:define-macro="thread"
+    petal:condition="true:children"
+>
+  <li petal:repeat="message children">
+    <span petal:condition="true:message/uid">
+      <a
+        href="#"
+        hreflang="en"
+        xml:lang="en"
+        lang="en"
+        dir="ltr"
+        petal:attributes="
+                          href view_p/uri --mbox self/mbox --uid message/uid;
+                          hreflang message/language/code;
+                          xml:lang message/language/code;
+                          lang message/language/code;
+                          dir message/language/dir;
+                          name string:id-${message/uid};
+                          id string:id-${message/uid};
+                         "
+        petal:content="message/subject"
+      >Subject</a>
+      <em
+        petal:content="message/name"
+      >Authors Name</em>
+    </span>
+    <del
+      xml:lang="en"
+      lang="en"
+      dir="ltr"
+      petal:condition="false:message/uid"
+    >(message deleted)</del>
+    <span
+      petal:define="children message/children"
+      petal:omit-tag="">
+      <ul metal:use-macro="#thread">
+        <li>Child</li>
+      </ul>
+    </span>
+  </li>
+</ul>
+
+<p petal:condition="true: self/message/parent; true: self/message/parent/uid">
+  Up:
+  <a href="${view_p/uri --uid self/message/parent/uid}">${self/message/parent/subject}</a>
+</p>
+<p petal:condition="true: self/message/prev">
+  Prev:
+  <a href="${view_p/uri --uid self/message/prev/uid}">${self/message/prev/subject}</a>
+</p>
+<p petal:condition="true: self/message/next">
+  Next:
+  <a href="${view_p/uri --uid self/message/next/uid}">${self/message/next/subject}</a>
+</p>
+  </body>
+</html>
